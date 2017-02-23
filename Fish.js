@@ -238,15 +238,51 @@ Fishy.Fish.prototype = {
     },
     
     playerDie: function() {
-        this.menu = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'menu');
-            this.menu.anchor.setTo(0.5);
-            this.menu.scale.setTo(1.5);
+        menu = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'menu');
+        menu.anchor.setTo(0.5);
+        menu.scale.setTo(1.5);
             
-            this.game.add.text(this.game.world.centerX, this.game.world.centerY - 60, "You've Been Eaten!").anchor.setTo(0.5);
-            this.game.add.text(this.game.world.centerX - 75, this.game.world.centerY, "Score:     " + Fishy_HUD.getScore()).fill = '#ffffff';
-            
-            this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() { this.game.paused = true; }, this);
+        eatenText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 60, "You've Been Eaten!").anchor.setTo(0.5);
+        finalScoreText = this.game.add.text(this.game.world.centerX - 75, this.game.world.centerY, "Score:     " + Fishy_HUD.getScore()).fill = '#ffffff';
+
         
+        restartButton = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 100, 'restart');
+        restartButton.anchor.setTo(0.5);
+        restartButton.inputEnabled = true;
+        restartButton.events.onInputDown.add(this.restart, this);
+            
+        //this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() { this.game.paused = true; }, this);
+        this.sprite.body.y = -100;
+        this.setDirection(Direction.UP);
+        Fishy_gameplay.resetCombo();
+        
+    },
+    
+    restart: function() {
+        console.log("fish-innter");
+            console.log(this.game);
+    Fishy.Gameplay.enemies = null; //group for all enemy fish, will add functionality to this group
+    Fishy.Gameplay.myFish = null;
+    
+    Fishy.Gameplay.starFish = null;
+    Fishy.Gameplay.topleft = null;
+    Fishy.Gameplay.topright = null;
+    Fishy.Gameplay.bottomleft = null;
+    Fishy.Gameplay.bottomright = null;
+    
+    Fishy.Gameplay.reef1 = null;
+    Fishy.Gameplay.curStage = 0;
+    Fishy.Gameplay.stageTime = [];
+    Fishy.Gameplay.stageTime.push(7000);
+    Fishy.Gameplay.stageTime.push(10000);
+    Fishy.Gameplay.nextStageTime = null;
+    
+    Fishy.Gameplay.starFishTime = 0;
+    Fishy.Gameplay.starFishInterval = 8000;
+    
+    this.game.world.removeAll();
+    this.game.paused = false;
+         this.game.state.start('Play');
     },
     
     getHit: function(otherFish) {

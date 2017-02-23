@@ -30,6 +30,7 @@ Fishy.Preloader.prototype = {
         this.game.load.image('reef2', 'gfx/bg_reef2_.png');
         this.game.load.image('reef3', 'gfx/bg_reef3_.png');
         this.game.load.image('playbutton', 'gfx/playbutton.png');
+        this.game.load.image('restart', 'gfx/restart.png');
         
         this.game.load.image('intro-swipe', 'gfx/intro-swipe.png');
         this.game.load.image('intro-eatfish', 'gfx/intro-eatfish.png');
